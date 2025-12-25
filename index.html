@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>圣诞快乐</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+      color: white;
+      font-family: "Comic Sans MS", "Microsoft YaHei", cursive;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    /* 星空背景 */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+        radial-gradient(2px 2px at 70% 60%, #ffeb3b, transparent),
+        radial-gradient(2px 2px at 40% 80%, #ffffff, transparent),
+        radial-gradient(2px 2px at 90% 20%, #ff9800, transparent);
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .card {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      animation: glow 2s infinite alternate;
+    }
+
+    .message {
+      font-size: 1.6em;
+      line-height: 1.6;
+      margin: 25px 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* 圣诞树 */
+    .tree {
+      width: 120px;
+      height: 200px;
+      position: relative;
+      margin: 30px auto;
+    }
+    .tree-layer {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 100px solid #0d5e20;
+      left: 0;
+    }
+    .tree-layer:nth-child(1) { border-bottom-color: #2e8b57; top: 0; }
+    .tree-layer:nth-child(2) { border-bottom-color: #3cb371; top: 30px; }
+    .tree-layer:nth-child(3) { border-bottom-color: #228b22; top: 60px; }
+    .tree-trunk {
+      width: 20px;
+      height: 30px;
+      background: #8B4513;
+      position: absolute;
+      top: 150px;
+      left: 50px;
+    }
+    .tree-lights {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: twinkle 1.5s infinite;
+    }
+
+    /* 爱心 */
+    .hearts {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.9;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    /* 按钮 */
+    .play-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      color: white;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .play-btn:hover {
+      background: white;
+      color: #b21f1f;
+    }
+
+    /* 动画 */
+    @keyframes glow {
+      to { text-shadow: 0 0 25px #ffeb3b, 0 0 40px #ff9800; }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(10deg); }
+    }
+
+    /* 雪花 */
+    .snowflake {
+      position: absolute;
+      top: -20px;
+      color: #fff;
+      font-size: 20px;
+      user-select: none;
+      z-index: 1;
+      text-shadow: 0 0 5px rgba(255,255,255,0.8);
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(105vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 贺卡内容 -->
+  <div class="card">
+    <h1>亲亲女朋友</h1>
+    <div class="message">
+      与你的不期而遇<br>
+      是如此美好<br>
+    </div>
+
+    <!-- 圣诞树 -->
+    <div class="tree">
+      <div class="tree-layer"></div>
+      <div class="tree-layer"></div>
+      <div class="tree-layer"></div>
+      <div class="tree-trunk"></div>
+      <!-- 彩灯（用JS动态生成） -->
+    </div>
+
+    <!-- 播放音乐按钮（可选） -->
+    <!--
+    <button class="play-btn" onclick="playMusic()">🎵 播放圣诞歌</button>
+    -->
+  </div>
+
+  <!-- 雪花（由JS生成） -->
+
+  <script>
+    // 生成雪花
+    for (let i = 0; i < 80; i++) {
+      const snow = document.createElement('div');
+      snow.innerHTML = '❄';
+      snow.className = 'snowflake';
+      snow.style.left = Math.random() * 100 + 'vw';
+      snow.style.opacity = Math.random() * 0.8 + 0.2;
+      snow.style.fontSize = (Math.random() * 15 + 10) + 'px';
+      snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      document.body.appendChild(snow);
+    }
+
+    // 生成圣诞树彩灯
+    const tree = document.querySelector('.tree');
+    const colors = ['#ff0000', '#00ff00', '#ffff00', '#00ffff', '#ff00ff'];
+    for (let i = 0; i < 12; i++) {
+      const light = document.createElement('div');
+      light.className = 'tree-lights';
+      light.style.backgroundColor = colors[i % colors.length];
+      light.style.left = (30 + Math.random() * 60) + 'px';
+      light.style.top = (20 + Math.random() * 120) + 'px';
+      light.style.animationDelay = (Math.random() * 2) + 's';
+      tree.appendChild(light);
+    }
+
+    // 生成漂浮爱心
+    for (let i = 0; i < 5; i++) {
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤️';
+      heart.className = 'hearts';
+      heart.style.left = (10 + Math.random() * 80) + 'vw';
+      heart.style.top = (20 + Math.random() * 60) + 'vh';
+      heart.style.animationDelay = (Math.random() * 5) + 's';
+      heart.style.fontSize = (Math.random() * 20 + 16) + 'px';
+      document.body.appendChild(heart);
+    }
+
+    // 可选：播放音乐（微信可能静音，需用户交互）
+    /*
+    function playMusic() {
+      const audio = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.wav');
+      audio.play().catch(e => console.log("Autoplay blocked"));
+    }
+    */
+  </script>
+</body>
+</html>
