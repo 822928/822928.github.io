@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>圣诞快乐！</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            font-family: "Microsoft YaHei", sans-serif;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+            margin: 0;
+        }
+        h1 {
+            font-size: 3em;
+            margin: 30px 0;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+        }
+        .snowflake {
+            position: absolute;
+            top: -20px;
+            font-size: 24px;
+            user-select: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎄 圣诞快乐！🎁</h1>
+    <p>愿你平安喜乐，幸福常伴！</p>
+    <p>—— 来自 Python 的温暖祝福 ❤️</p>
+
+    <script>
+        for (let i = 0; i < 80; i++) {
+            const snow = document.createElement('div');
+            snow.innerHTML = '❄';
+            snow.className = 'snowflake';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.opacity = Math.random() * 0.8 + 0.2;
+            snow.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            document.body.appendChild(snow);
+        }
+    </script>
+</body>
+</html>
